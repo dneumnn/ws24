@@ -1,6 +1,6 @@
 # WS24 - Intelligente Informationssysteme
 
-## Block 1
+## Block 1: Language Models
 
 ```bash
 conda create --name block1 python=3.11
@@ -17,10 +17,3 @@ In block 1 we work with jupyter notebook. Start jupyter notebook with:
 ```bash
 jupyter notebook
 ```
-## Block 2
-
-## Block 3
-
-## Block 4
-
-## Referate
