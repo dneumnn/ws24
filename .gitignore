@@ -1,3 +1,10 @@
+# result and log directories
+block2/chainlit/
+block2/data
+block2/open-webui/
+block2/rasa
+.webui_secret_key
+
 # MAC
 .DS_Store
 *.DS_Store
