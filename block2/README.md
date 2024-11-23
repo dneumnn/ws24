@@ -40,8 +40,9 @@ Ollama runs at <http://localhost:11434>
 #### Install Ollama and OpenAI Client Library
 
 ```bash
-pip install ollama
-pip install openai
+conda create --name block2_ol python=3.11
+conda activate block2_ol
+pip install ollama openai
 ```
 
 ### Streamlit
@@ -51,6 +52,9 @@ A faster way to build and share data apps: <https://streamlit.io>
 Build a chatbot based on Streamlit.
 
 ```bash
+conda create --name streamlit python=3.11
+conda activate streamlit
+pip install ollama openai
 pip install streamlit streamlit_chat
 ```
 
