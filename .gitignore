@@ -1,5 +1,4 @@
 # result and log directories
-block2/chainlit/
 block2/data
 block2/open-webui/
 block2/rasa

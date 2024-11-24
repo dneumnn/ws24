@@ -16,15 +16,6 @@ pip install scikit-learn pandas
 pip install datasets accelerate
 ```
 
-### NEXT
-
-The python system requirements in block2 are python=3.11!
-
-```bash
-conda create --name block2 python=3.11
-conda activate block2
-```
-
 ### Inference Engine
 
 #### Install and Run Ollama Server
@@ -93,26 +84,25 @@ Please keep attention: Open WebUI framework only works with python 3.11! So we u
 ```bash
 git clone https://github.com/open-webui/open-webui.git
 cd open-webui
-docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v path-to-your-data-on-host:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main
+docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -e OLLAMA_BASE_URL=http://localhost:11434/v1  -v path-to-your-data-on-host:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main
 ```
 
-Set path-to-your-data-on-host to your local path where webui should store all data "/Users/done/Documents/Hochschule/WS 2024/WI-Intelligente-Informationssysteme/ws24/block2/data"  (use docker run -v host_directory:container_directory image for mappig volumes)
+1. Port mapping: -p 3000:8080
+2. Gateway to call local host from outside the container: --add-host=host.docker.internal:host-gateway
+3. Set the Ollama url: -e OLLAMA_BASE_URL=<http://localhost:11434/v1>
+4. Set path-to-your-data-on-host to your local path where webui should store all data: -v host_directory:container_directory image for mappig volumes
+5. Give the container a name: --name open-webui
+6. --restart always
 
 ```bash
-docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v "/Users/done/Documents/Hochschule/WS 2024/WI-Intelligente-Informationssysteme/ws24/block2/data":/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main
+docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -e OLLAMA_BASE_URL=http://localhost:11434/v1 -v "/Users/done/Documents/Hochschule/WS 2024/WI-Intelligente-Informationssysteme/ws24/block2/data":/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main
 ```
 
 #### Configure Open WebUI
 
-1.Set the port the open webui is listening via docker port mapping
-
-```bash
-docker run -d -p 3000:8080 --name open-webui --restart always ghcr.io/open-webui/open-webui:main
-```
-
-2.Storing Users
-3.Storing Documents
-4.Connect to Ollama or OpenAI API
+1.Storing Users
+2.Storing Documents
+3.Connect to Ollama or OpenAI API
 
 set environment variable OLLAMA_BASE_URL
 
@@ -125,7 +115,7 @@ Use OLLAMA_BASE_URLs for Ollama Load Balancing: -e OLLAMA_BASE_URLS="<http://oll
 Set environment variable OPENAI_API_KEY and OPENAI_API_BASE_URL
 
 ```bash
-docker run -d -p 3000:8080 -e OPENAI_API_KEY=your_secret_key      -v path-to-your-data-on-host:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main
+docker run -d -p 3000:8080 -e OPENAI_API_KEY=your_secret_key -v path-to-your-data-on-host:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main
 ```
 
 For Load Balancing use:

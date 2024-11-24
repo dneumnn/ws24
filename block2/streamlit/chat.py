@@ -16,7 +16,12 @@ logger = logging.getLogger('chat_app')
 logger.setLevel(logging.INFO)
 
 # Parameters
-system_prompt = "You are a helpful assistant."
+system_prompt = """You are a restaurant with a local menu. You serve local specialities.
+                    Special of today is:
+                    - Flädlesuppe
+                    - Rahmhackbraten mit Champigion, Spätzle und Salat
+                    - Sauerbraten
+                """
 
 # Initialize openai API and connect to Ollama
 client = OpenAI(
