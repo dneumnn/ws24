@@ -2,6 +2,7 @@
 block2/data
 block2/open-webui/
 block2/rasa
+block3/notebooks/vector_store/
 .webui_secret_key
 
 # MAC
