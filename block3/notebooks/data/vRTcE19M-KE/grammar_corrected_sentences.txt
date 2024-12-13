@@ -1,0 +1,416 @@
+And it's wonderful to be here with you all.
+Large language models get the hype.
+This is certainly true.
+Uh, I do believe firmly that the future is in compound systems, um.
+I want to emphasize, though, that I also feel like the present is compound systems, um.
+I think we are all kind of intuitively aware, if we're working in the field, that we only ever interact with systems, but models get all the headlines, and so that kind of core insight can get clouded out, and part of what I want to do today is just raise your consciousness on the fact that we are all the time dealing with systems, but if that is getting lost in the shuffle, it is understandable, because we are a wash in headlines that are centered on large language models
+This is a trend that really kicked off with the gpt3 paper in 20, of course, and that makes perfect sense, because the headline result from that paper is that they did a thing in the world.
+They trained a model at 175 billion parameters, which is more than an order of magnitude larger than any model that had come before it, and, of course, the central insight is that simple act of scaling LED them to be able to Design Systems of a kind that we had never seen before, and so that really kicked off the trend of announcing lots of exciting new models.
+Here's another example of this: when Google announced its Palm model, of course, a headline there was that it was 540 billion parameters, so much larger than we had seen before.
+I think Palm is a system in the sense that I mean for the talk today, but they made the announcement in terms of a model, and they even did that for their Gemini system.
+I think, again, Gemini is a paradigm case of innovation at the level of model artifacts, but also at the systems that we build around them so that they can do exciting things.
+Gemini is a system, but, of course, they described it as a model, in keeping with this trend, and even open AI, which I think of as an outfit that really has reoriented around full software systems, where the Paradigm example of that would be chat GPT, which is a kind of experience that is powered by lots of interesting models.
+Even they, though, tend to announce things in terms of models.
+So GPT 40, the new flagship model, I think these are really systems, but they centered it on the model, and, of course, that's just the big Tech players, if you're like me, it feels like every time you open up Twitter, your feed is just full of breathless announcements about some exciting new model series.
+That is supposed to change everything.
+So if you're living in this kind of world with me, it makes sense that you would end up thinking in terms of models.
+But this is the central lesson here we only ever deal with systems, and let me try to make this Vivid for you.
+Here I've got on the slide a large language model.
+You can imagine that you downloaded it from somewhere as a pre-trained artifact, or maybe you spent millions of your own money to train this thing yourself.
+In some sense, you feel like this is going to be a really exciting and highly performant artifact, but currently it is just sitting on dis, completely inert.
+Uh, all it can do is occupy space.
+At this point, to get this model to do anything at all, you have to at least two things: you have to prompt it, to put it in some kind of internal state, and then, if you want it to be a generative system, you have to define some kind of sampling method.
+You have to get this model to talk, because intrinsically, all it really does is represent things in an abstract space.
+After making a choice about a prompt and a sampling method, you now have a system, and part of the main thesis for today is that both of these things are non-trivial choices that are going to define the kind of system that you end up with.
+The prompt, the model and the sampling method form a kind of minimal system, but already an important one.
+And then, of course, in the more modern mode now we are taking minimal systems like that and giving them access to calculators and programming environments and databases and maybe even web apis and the web itself.
+I think at that point we can all see that this is a software system.
+The language model might have a privileged place here as a kind of hub for all the things that are going to happen, but it is just one component and the capabilities of the system are going to be defined by how all of these things work together in concert and not solely by the language model, and that is kind of the essence of my thesis for today.
+In my group and in related groups at Berkeley, uh, and various other places, we have been thinking in these terms for quite a while now.
+And at the start of this year we did a blog post called the shift from Models to compound AI systems, and I'm kind of today just giving you an updated perspective on the thesis from that blog post.
+I want to emphasize that that blog post is from February 18-2024 and the reason I want to emphasize that is that, in AI terms, that was a long time ago and I'm hearing more and more of this talk and, in particular, Sam Alman, at a very recent openai developer event, was musing aloud about the future of AI and he said he expects to see a shift from talking about models to talking about systems, which, to my ear, directly Echoes the
+I don't know whether he was influenced by us or whether this is a case of convergent thinking or what, but we did say this first.
+I guess that's the main point I want to make is like sort of goodbye, Sam, we've been thinking in these terms for a very long time.
+Why is this important?
+I'm going to try to support these main claims here, but let me just give them to you at a high level.
+The first is this, that is, that this is important just from the perspective of investing in all of the right things as you're developing an AI solution.
+Here's an analogy: when you design a system in this mode, you are doing something analogous to designing a Formula 1 race car, and I think we all can recognize that an F1 race car is much more than just its engine.
+It's also aerody, Dynamics and friction and the driver and the controls for the driver and everything else.
+All of those things have to come together to get a really good race car.
+And too often in AI we are acting like F1 race car designers who focus obsessively on the engine, and I don't know much about F1 racing, but I'm confident that if all you ever did was think about the engine for this car, you would not end up with a good race car.
+And just by the way, here you can probably tell that I at these images using chat GPT-uh, and it was sort of funny.
+I had trouble prompting it to get me to just show me a picture of an F1 engine.
+It kept putting wheels on the engine, so it would produce pictures like this, and I decided that this is almost a kind of comical embodiment of the thing.
+That I'm worried about today is that we're trying to design F1 race cars and we end up doing that by putting wheels on the engine.
+Uh, do not do this.
+It's not going to lead to a good overall system.
+Got to think in these terms.
+Here's another important point: building the best system for your goals and constraints is almost certainly going to emphasize system components, and I maintain that, for example, a small model that is embedded in a smart system is always going to be better than a big model embedded in a simplistic system.
+I think this is true even if you're just shooting for raw accuracy or performance in some sense, but it is absolutely true if you also care about things like cost and latency and safety and privacy.
+Once those considerations come in, you're going to be thinking about a system that can offer you all of those guarantees, and there and in that context, a small model might be the only choice that you could make, especially if cost is a consideration.
+And then, finally, we could expand the purview out a little bit here and just think about safety and regulation.
+I'm going to talk about this at the end of The Talk today.
+A lot of discussion in these are focused on model artifacts, and I think that is simply a mistake.
+I think we need to think about regulating entire systems- oops, not just models.
+I think if we focus on the models, we're inevitably going to elect some really dangerous stuff through and also end up overregulating.
+Now to the system components, and I'm going to stick with the simplest ones for today, because I actually think those are the most consequential, especially in this era of context learning.
+Let's start with the one that seems on the surface to be the simplest of all.
+This is the method that you're going to use for sampling when you want your model to generate.
+Here's that minimal system.
+Here I imagine that you've got a prompt that came in and now we're going to think about getting this model to talk.
+And of course there are lots of methods.
+We could greedy decode.
+That would be just where we decide that we're going to generate the most probable next token, conditional on what has come in so far.
+We think of that as a kind of default for Generation, but there is no sense in which it is the privileged method here.
+It is just one choice among many.
+We could also think about top PE.
+This would be where we're sampling tokens from the most probable tokens according to the distribution for the model.
+We could also do something like beam search, which would be a more exploratory me method.
+We could think about insisting on token diversity for these Generations.
+That's an even higher level ideal that we could impose, and we could even go so far as insisting that the things we generate conform to being valid JSON- a very high level consideration in play here.
+And that is just the tip of the iceberg.
+In fact, if you start to look around in this literature you find it's a space that's full of innovative ideas.
+I won't have time to go through these in detail, but a lot of these methods are doing things like making use of the gradients to get much more information about the forward, backward flow in the model.
+A lot of them are focused on that question of how we could ensure that the generated output conforms to a high level grammar, like uh for a logic or a computer programming environment.
+Here's a really nice paper that tries to do that efficiently and also offers an overview of lots of Prior methods that have tried to ensure model Generations conform to the specification of computer code and things like that.
+And here's a really recent paper that is actually adding parameters to the model to try to adaptively find a good temperature so that the model is creative or constrained, depending on the task that you want it to solve at any given moment- a really Innovative way to think about sampling.
+And, if you'll permit me one step further, we could expand out what we mean by sampling for generation and really get into things that are going to look like creative exploration.
+I've put this under the heading of majority completion strategies.
+This is a simple example of a pattern that we're seeing a lot now in technology and in research.
+Imagine you've got a prompt that has some really hard reasoning task in it.
+Now you could ask the model to simply generate the answer in one step, but that might be too difficult.
+What you might want to do instead is have it generate some reasoning path and then produce an answer, but you could do that by sampling multiple reasoning paths and different reasoning paths might lead to different answers.
+So if I do this a bunch of different times, I get a distribution over the answers and I might then say that the actual generated output in this context is going to be the answer that was the most common outcome given all the diverse reasoning paths.
+So that's a way of letting the model explore and do some reasoning in generation, before you insist on it, producing a final answer.
+Now, this isn't, strictly speaking, just a sampling strategy, but we might trick the user a little bit and hide from them all those intermediate steps, so that it looks like we have simply sampled an answer over here on the right for their input, and that's just one simple instance of the many things that you could do.
+As you had, reasoning paths lead to other answers, lead to other reasoning paths, and so on, before finally producing the answer at the end.
+So that's the tip of the iceberg, I think.
+Still, even though that's a pretty rich array of ideas- this is the essence of this, though- there is no one true sampling method for your model.
+This is a highly consequential step.
+In some sense, you are making the model speak, which it does not really do intrinsically, and the choice that you make here is going to be highly consequential for the overall system that you design.
+I think I'm emphasizing this because we too often don't consider the sampling method, even though you can see that it really matters for the behavior of the overall system, and it's going to interact in complex ways with the language model that you've chosen as your basis.
+So that's sampling.
+Let's think now about prompting, and prompting is really the heart of modern AI system development.
+Probability a lot of you out there have done a lot of prompt engineering.
+You've worked very hard on the prompts and seen that you can get complex and interesting behaviors from the resulting system.
+So that is certainly the heart of all of this, and if you've done it long enough, you might have discovered that it also can be quite heartbreaking.
+I want to discuss that with you as well.
+Let's reflect, though, for a minute on the origins of all this.
+We've started to take it for granted, but it's a new and very unusual idea.
+I think the origins of this really traced to the gpt2 paper from 2019, this is not Radford at all.
+There are some precedents before this, but this is the paper where it really crystallized.
+I believe.
+In that paper, they say we demonstrate language models can perform Downstream tasks in a zero shot setting without any parameter or architecture modification.
+They go on to induce summarization behavior, we add the text after the article and generate 100 tokens in context learning.
+I want to confide in you all that when I first read this way back in 2019, I did not properly understand what it was saying. I was so cognitively biased against this kind of thing that I thought surely someone hidden in this paper is a description of some fine-tuning method that they used to get that token to produce summarizations.
+But now I see, of course, that they really meant what they wrote, which was perfectly clear.
+I was just not primed to really understand it.
+Um, that simply by relying on this language model to do in context learning they could get it to summarize.
+Really amazing.
+And in that paper they also tried translation, question answering, text completion and reading comprehension- for performance is variable across them.
+Um, but mostly they can get signal, and it really is a kind of striking exploration of this idea.
+We now take it for granted, but at the time, at least for me, it was very surprising.
+Then.
+Fast forward just one year.
+We get gpt3 right.
+We've gone from 1.2 billion parameters for gpt2 now up to 175 billion, and the gpt3 paper is an incredible exploration of what that scaling leads to.
+It's full of where they do successful, complex in context learning.
+And here's an example of that: for question answering, we just prompt the model with a context passage and then we give it a few demonstrations which are also just part of the prompt that we're creating here, uh, and that prompt is meant to show it that, uh, we want the behavior to be, that the answer is a substring of the context passage.
+We maybe provide a few of those and then we give our Target question and the major discovery is in context.
+The model can learn to imitate that behavior and answer questions as substrings of the passage, really striking behavior.
+And the paper, uh, really already identifies a kind of General pattern for this, where we're going to have some context or instructions.
+Then we'll have a list of demonstrations that further exemplify the behavior that we want to see, and finally, a Target down here, and they apply this template to lots of different tasks, from QA to reading comprehension, to machine translation.
+Here's a quick example.
+I could say: please unscramble the letters into a word and write that word as my instruction or context, give a few demonstrations and then at least, at least at the time of gpt3, maybe I would get something that was at least close to the behavior that I wanted to see and so forth and so on.
+So already a template for Building Systems in this modern mode.
+It's very exciting.
+But, as I said, if you have done some work with prompting.
+You have already seen that there can be a real dark side to all of this.
+This is a paper that kind of crystallizes it for me.
+This is from a group at Berkeley and udub, quantifying language model, sensitivity to spousal features in prompt design, or how I learn to start worrying about prompt formatting.
+And this is a really dramatic case of sensitivity of the model to the prompt choice that you make.
+Um, this is a sample table from the paper they're looking at, llama 27b.
+The paper explores a bunch of other models, but just to take one example here, task 280 is an instruction following task.
+They have two prompt formats for it and those formats differ only in whether or not they have colons in them after the words passage and answer.
+And that minor change leads to an 80 Point difference in the performance of one in the same language model.
+And that pattern is repeated across lots of tasks in this paper.
+This kind of shows you that with the wrong prompting strategy you could make any model look arbitrarily bad.
+But the essence of this for today is that I think it shows that it just doesn't make sense to ask what it means to evaluate this model in the context of these tasks.
+The only way to make sense of this question is to ask how the model paired with a prompting strategy is going to do, and think in those terms, and that is already systems thinking.
+So get rid of that question and think right away in terms of systems.
+You should be asking yourself what is the optimal prompt model combination, given whatever goals you have.
+And let me just tell you a few more stories about this.
+And we're going to kind of go up at a higher and higher level, starting with a prompt, uh, with Chain of Thought.
+This is a lovely paper called Echo prompt.
+It's an empirical exploration of different strategies for doing that classic- let's think by step- Chain of Thought reasoning.
+And here's a sample table from the paper.
+You can see that they've just got different variants of that phrasing.
+Let's repeat the question, let's reiterate the question and so forth and so on.
+And this is a glimpse of the results, which show wide variation in terms of the performance of the model, based on how we frame the Chain of Thought reasoning step.
+This is for code Da Vinci 2, which is an older model, but again I think this reproduces for newer models and it shows that it just doesn't make sense to ask this question.
+If you asked, what does it mean to evaluate this as a model, even just for Chain of Thought, you already find that you have to be thinking in terms of model prompt combinations or, in this case, model Chain of Thought combinations, and again, that is systems level thinking, not model level thinking, and I think that's just going to bring so much Clarity to your own development cycles.
+So get rid of that question and let's go up one step even further here.
+This is a nice tweet that I saw.
+This person just observes fun fact: uh, I realized I was still using old gp4 for Tool calling in part of an agent updated to 40 and immediately broke stuff.
+I think if you've been in this business long enough, you have seen this happen yourself.
+And this nice response tweet says: had the same exact experience where going from 3.5 to 40 mini triggered a fresh prompt engineering exercise as if it's a new project.
+I think this is showing that the model and the prompt are inextricably linked.
+We write these prompts in English, but in fact they are more like an effort to communicate with this sort of alien creature- the language model- and we can deceive ourselves by thinking that our understanding is going to translate directly into the performance of the system.
+We would like to get away from this, but I think the first step toward that is thinking about these two things as inextricably linked.
+And, by the way, a fun fact here, which Petra pointed out to me, I didn't know this at the time of quoting this tweet, but this tweeter here is an Alum of my natural language understanding course, and so maybe it's not surprising also that they are a fan, as you can see here, of dspi, the programming library.
+One final story about this.
+You might have seen that people found the Apple intelligence prompts.
+These are in system files that ship with the OS, and the prompts are fascinating to read because you can kind of Glimpse the development cycles that they had to go through to get the Apple intelligence models to behave in the intended way.
+They're full of things that are kind of like special pleas with the model to do what they want and so forth.
+You can tell that these prompts are very tightly knit to the models that they shipped, and again, that makes me want to take the perspective that, even though they're in English, they are much more like compiled binaries which are meant to be paired with a particular model.
+That is again systems thinking, uh, and I think it shows that these things are really interacting in tightly knit ways to deliver the performance that we want and we can't really separate the prompt as a system component from the model as a system component.
+And this is kind of a funny thing to reflect on.
+And this does lead us to the dspi library that we've been trying to promote with people and get lots of people to work on.
+It's a funny moment because some of the core lessons of artificial intelligence seem to have been forgotten.
+So let's just step back and reflect on this.
+Throughout AI, we've been successful in part because we have adopted these lessons: mod, system design, datadriven optimization and generic architectures.
+These are kind of the essence of what made us be able to move so fast, especially in the Deep Learning era leading up to all of these exciting large language models.
+And I think these time tested lessons got nicely embodied in libraries like torch and theano and chainer and especially P torch.
+Those things embodie these concept Concepts and helped us be able to move more quickly as a result.
+So I wish these things would carry forward.
+But the current moment is actually kind of funny because in the current moment we do a lot of prompt templates, manual adjustments to prompts and we get complete model dependence, as you just saw in those preceding stories, where the prompting strategy, iterated on over time by hand, ends up very tightly knit to whatever model we happen to be working with.
+And this is kind of tragic for me, because these time tested lessons have taken us so far and it's surprising that we seem to have forgotten them as we entered this new mode of AI system development.
+And that brings us to DSP.
+DS, pry is a model, is a, is a programming library for moving away from prompt engineering and toward language model programming.
+And this is a way of really honoring this Insight that when you have a prompt, a language model and a sampling strategy, you have designed a software system.
+And we would like, in essence, to bring the core insights of artificial intelligence and also software engineering to this new mode of AI system development.
+If you haven't seen DSP before, let me just give you a quick sense for how it works.
+At the top here I've got some code that sets up some highlevel tools that are going to define the system.
+For this example, I've got a turbo as my model.
+I've got an index of Wikipedia and I could have other tools at my disposal there if I wanted.
+Those will be set up at a high level.
+And then this here on the left, dspi predict question to answer, is a minimal system in DSP for doing basic question answering.
+That's all it takes, is one line.
+What happens under the hood when I actually use that system is that it gets compiled into an actual prompt to a language model.
+Of course, because that's how we communicate with these language models.
+But you can see here that there's a real difference between the code that I wrote and the thing that gets compiled down.
+The thing that I actually prompt the language model with is very tightly knit to the particulars of that language model and could look different depending on the tools that I had set up at the top here.
+So we've abstracted away, we've removed some of that model dependence that I was worried about before.
+That's a very simple program.
+I could also write a much more complex one.
+This is a program for doing multihop question answering, where I might want to gather evidence from a bunch of different um passages in order to answer a question.
+As you can see here, it is mostly Python code.
+It's also very tightly to the design principles of Python, and it's meant to allow you to freely express in code the kind of system that you want to develop.
+And then the really nice aspect of all of this, in addition to these design principles, is that as a final step I could optimize this program and in doing that I would try to find a prompting strategy that was really successful, given the labeled examples that I have, and also independent of whatever tools I had chosen up here.
+And what I'm showing off at the bottom is an Optimizer that would allow you to simultaneously optimize the instructions as well as the few shot demonstrations that you were using.
+Those are both crucial aspects of successful prompting, and this kind of moves all of the burden of finding good ways of doing that onto the optimizer.
+A return to that time-tested lesson of datadriven optimization, and to show you how much this can matter and how important it is to think about expressing systems in these terms, I thought I would just highlight for you a few results from the original dspi paper to emphasize a few different things about how important it is to think in systems terms.
+So I'll have here, as a kind of framework for evaluation, the program I'm going to write and the optimizer, and those will get paired with the language model to specify a complete system.
+And for the two models I'll have turbo and llama 23b to show very different sizes and types of language model.
+At the top here I have a real Baseline system- it's the one that I showed you before, where I just go from questions to answers and for my Optimizer I'm just going to randomly select a few few shot demonstrations to help the model understand what kind of behavior I want to see.
+For this Baseline here we get about 34 for Turbo and 27.5 for llama 2, where our metric here is exact match on the answer that we want to see.
+So that's a b line system.
+If I go up and I just do retrieval, augmented generation, a very simple DSP program, I already get a boost just from Gathering relevant information.
+And if I do bootstrap Pew shot optimization, where here I am using the DSP program to generate full examples which could include retrieved passages and include those in the prompt as examples of the behavior that I want to see, I get really large gains from my Baseline, all the way up to 42 and 38. here we could also think about using react agents.
+This is a very interesting proposal for having the model do some reflection and thinking about how to solve the task and break it down into pieces.
+This is less successful for this problem, but this still shows the power of systems thinking, because I have combined my program here with different optimization strategies and again seen real gains over the Baseline.
+There is the nice twist here that you can see that the human reasoning prompts- the ones that were carefully written by hand- actually underperform the prompts that we get from simple bootstrapping up here and also in this react context, which again shows the power of datadriven optimization over trying to very, um, intelligently think of your own prompting strategy yourself.
+And finally, at the bottom here, if we move to a program that is designed to do multihop reasoning, it is designed to gather evidence from multiple passages and use that to provide answers.
+We get really good systems here.
+We have gone all the way from 34 as our Baseline up to almost 55 for Turbo and seen even larger gains from 27.5 all the way up to 50 for the smaller model there, really showing the power not only of intelligent system design, where we think about the prompting strategy and the optimizer here, but also showing the power that we can get out of small models.
+We have almost closed the gap here and we saw larger gains for the smaller of the two, and that's a bit of a digression, but I think this is so important in the current moment that we think about designing systems that can get the most juice possible out of small models.
+This is a really insightful post from an analyst at Uh Theory Ventures and it just titled small But Mighty Ai and it includes the observation that 77% of Enterprise use of models is at the 13 billion parameter size or smaller.
+So not the largest models that get all the headlines, but actually much smaller ones.
+And for a glimpse as to why that is happening, you could just think about the latency numbers that are included in this blog post.
+If you've worked at all on industrial systems, you'll know that it's very nice to be at the space of around 18 milliseconds for latency, but as we move up to things that are more like above 50 milliseconds for latency, and certainly all the way up to 750 milliseconds, we have real headaches here where at some level, those headaches are going to trans into this being very expensive and of course, that might be just prohibitive.
+You could have a wonderful solution, but if it costs too much for people to use it relative to what you're gaining in the rest of the organization, it's just a non-starter.
+And again, that is pressure to pick the smallest models.
+But to get any juice out of those small models, we really need to think about the systems that we are designing around them.
+So your prompt will be a deciding factor in your system performance.
+That's the thing that I want to emphasize the most here.
+Finally, I want to talk a little bit about tool access, because that, as I said before, is where we really transparently end up thinking in terms of entire systems, not just in terms of models.
+So this is the step where I'm going to actually bring in calculators and programming environments and databases and the web and web apis and so forth.
+I think it's really clear at this point that these are systems, so I thought it would be nice to think about the overall consequences of designing systems in these terms instead of diving into the tech tech details.
+So, as some food for thought for you, let me pose a few different questions.
+I'm going to offer you choices between two types of systems and you can reflect for yourself on which system you would prefer for whatever you're trying to do out there in the world.
+First question: which is more reliable?
+A giant large language model that embeds a snapshot of the entire web as of today and then it's frozen, or a tiny language model working with an up-to-date web search engine, which would be more reliable?
+Here's a second question: which one would you prefer in some general sense?
+a giant large language model doing contextless autocomplete on your phone via a centralized service, so it's sending these completion messages back and forth, or a small model doing that same autocomplete task, but locally on your phone, or whatever, and using your own chat history?
+Which would you prefer?
+How about this?
+Which one is more dangerous?
+gp4 with no access to databases or the web, or a 10 billion parameter language model that has been instruct, tuned to log into websites and has tool usage that gives it access to the web, which would be more dangerous?
+And finally, what do you expect to see in 2026?
+Massive Foundation models that do math, retrieval, reasoning and so forth, entirely in terms of their parameters and their standard computations, or systems consisting of multiple models and tools working together in a coordinated fashion to do things like math, retrieval, and reasoning.
+Maybe in the Q&A we can talk about these questions together.
+Let me start to wrap up here by just offering you a few thoughts on the high consequences of all of this for technology and society.
+A nice place to start here is this recent legislation, SB147, which was vetoed by California governor Gavin Nome.
+sb147 sought to do many things, but one of the main things it tried to do was offer new regulation based on the size of models, and, in particular, sb147 was going to regulate specially models that cost more than aund million to train and had 10 to 26 flops performed during during training, so truly a massive scale that we're talking about- whereas models of smaller sizes were, by and large, not going to be regulated by SP 1047.
+Nome vetoed this, and the rationale that he offered is really interesting.
+He notes that smaller specialized models may emerge as equally or even more dangerous than models that were targeted by the legislation.
+I'm not sure what prompted him to say this, but I think it is really wise.
+I think it is observation, in essence, that we could take small models and embed them in complex systems that would, as systems, do things that were really surprising.
+They could be productive, but they could also be quite dangerous, but the constellation of those things working together in a system could be more dangerous than a very expensive model that was just sitting there on disk, unable to access the web and do other things that are really going to get us into trouble.
+So ultimately, I think this was a wise decision and points to the idea that future legislation should be oriented around systems, not around models.
+We could also think about the consequences for research and, in particular, for the kinds of comparative evaluations that we conduct.
+There are lots of leaderboards out there that are meant to rank different language models.
+This is one from hugging face, this is chatbot Arena and we have Helm from Stanford and all of the entrances in these things are nominally listed as individual models, but of course, you can't actually evaluate a model.
+You can only evaluate a system under the hood.
+Here we have to have at least a prompting strategy, a model and some procedure for Generation- the minimal system, and I can't help but feel that this is not quite the thing that we want to be evaluating.
+For my F1 race car analogy, this is as though we were running races that really were just engines with wheels, if you want to run a race of engines with wheels.
+That might be a sensible thing for you to do, but we should be clear sighted about the fact that that is probably not the thing that we think we are doing.
+What we really want to do is think about these language models as components in larger systems, and so I would kind of exhort the community to reorient all of these leaderboard evaluations around entire systems.
+We could give privileged places to the language models, if we want to, as important components there, but we should really think about all the pieces working together in constellation, because that's the relevant thing to be asking when we think about these technologies being deployed out in the world.
+Final slide here, and this is kind of a prediction about the future, so this is also something that you might think about and ask questions about.
+I'm just reflecting on these last five or so years and what.
+What has happened and what has happened.
+What I think we see already is a few different Notions of scaling in play as driving forces behind all of the progress that we've seen happen so fast.
+Starting in 2020 with the gpt3 paper, we kind of began the era of scaling: unsupervised training, that is, just taking a really big language model and having it learn to imitate all the data on the web and all the data you can find.
+Indeed, we continue to live in an era in which scaling up these processes is showing some gains, but I believe that on its own, this is not showing the kind of gains that we're seeing overall in AI.
+Those gains now are being driven, at least in part, by scaling up.
+In a different sense, this is scaling up instruction fine-tuning.
+Starting in about 2022, with, especially chat GPT, we saw the power of having large teams of very smart humans create good input output pairs that we can use to update models so that they learn particular things and acquire particular skills.
+And again, we continue to live in an era in which scaling these things up is leading to gains.
+But I think we see also that it's not a silver bullet and that has led very recently to a rise.
+In the First theme that I mentioned, if you think about scaling sampling for Generation, we're now seeing very sophisticated forms of sampling for Generation that you could think of as kind of scaling up of inference, time processing, and search that you might do on your way to producing an answer to a user query, and I think that's going to continue from 2024 onward.
+But here's the final prediction: as we really think about the future, we are going to see scaling up of systems.
+Transformative things are going to happen in virtue of the fact that we take perfectly good language models, maybe even small ones, if we're thinking about high volume services, and give them access in productive ways to lots of different tools and other things that make them really capable as systems.
+That's my prediction about the future.
+I think you should join me in moving from llm thinking to full-on system thinking, because I think it will make you more productive in your work and lead to bigger gains, just like I'm predicting for 2025 and Beyond.
+So I'll stop there.
+Thank you very much.
+I'm eager to hear your questions and comments.
+Thank you so much, Chris.
+Um, amazing, so wonderful to hear from you again, like I always learn so much.
+We got a bunch of questions.
+Hope more of those will keep coming up, as we have this Q&A part of the session.
+Maybe the first one is more about the understanding of kind of compound systems and the relationship to uh, to generative agents.
+So this question came up a few times like: how do generative agents play into this whole thing.
+Agents.
+Yeah, so that could be a kind of technique that you use to take a language model and have it not only do things that it couldn't do in simple generation on its own, but also could be the key thing that Bridges you into having that language model make use of tools, uh, and also make use of tool output.
+Um, and so I think that really is systems thinking, and I would encourage people not necessarily to be purists.
+If you think about this as a software system, you could design an agent that was entirely dependent on the model, doing complex things in generation and really nailing whatever problem you've set up for it, but you could also write some code that would help bridge the gaps between the language models, capabilities and the thing that you want to see.
+If you're designing a system, that's a very natural thing to play with, and I think we could test this by the results that you achieve.
+Thank you so much.
+Uh, near the beginning of the talk, you mentioned that modern AI systems are already producing multiple reasoning paths in the background.
+How does the system produce the reasoning path?
+And now, how can we give users more access to the inner workings of these systems to help them evaluate the results?
+Yeah, interesting, there are a few layers to this.
+The thing that I was referring to with the majority completion that really kicked off with the Advent of Chain of Thought methods.
+Um, like, let's think step by step.
+And that was just the simple observation that if you had a model, go through that you know, prompt it with let's think step by step and let it generate tokens and responses.
+The process of producing all those tokens in ways that we don't fully understand often leads to more reliable answers.
+And you can see- we see now in retrospect, that that was just the tip of the iceberg in terms of what's possible, because I can, could have it- do Chain of Thought to generate an intermediate answer which could itself generate Chain of Thought reasoning, and I could have lots and lots of inference paths leading to lots of different outcomes, and then think about doing statistical analysis of all those outputs to decide on a final generation.
+And that's a real playground of different ideas that you could play with different techniques that you could use.
+And it really is systems thinking, because you're going to now think about the prompt that came in, the structure of the overall system, which might even have multiple language models working together, and also think about how you're going to actually do these Generations, what kind of sampling method you're going to use, and it adds that Twist of how are you going to decide on the final answer.
+In my illustration, it was the most common occurring answer across all the reasoning paths, but you could even think about different variants of that idea, and I think that we've seen a kind of culmination of this in the uh open AI announcements of its 401 models.
+uh, which are clearly doing lots of inference time work before they produce an answer for you.
+Part of the question was how we could expose more of that.
+I think open AI is not going to expose more of this.
+I think they regard these as Trade Secrets, but you could explore with smaller models to see what kind of behaviors you can get out of them, and I think a lot of this is going to start to be explored in the research literature going forward.
+Thank you so much, um.
+The next question is about challenges to solve or to reach the system level scaling, like what do you see is still missing?
+or the most challenging to get there.
+Like what would you point out?
+Uh, so that's kind of like what is going to happen in 2025 and Beyond?
+Uh, in terms of scaling systems, I mean, they will just get ever more complex.
+You could think a paradigm case of this would be Google search.
+We have some precedent for this, where, at some level, that began from a very simple search technology where they were just indexing pages on the web, and now, by now, 2024, that is probably such a complicated Software System that no one individual could even begin to understand it, but it still functions as a result of teams of people and lots of dynamical behavior, and we're just at the starting point for these geni systems.
+They look like Google did in probably the year 2001, and so over the next decades, I think we're going to see just incredible systems built up, and I think to.
+The thing to watch is, um, when people actually do provide lots of tools, um tool access, so that essentially, these language models become like you or me as we cruise around on the web with the capability to try different pages, log into different systems, and communicate with people on social networks.
+When that really starts to happen in a very free form way that maybe even the system designers don't understand, we are sure to see consequential things happen in the world, and you can probably hear in my tone of voice that I think some of those will be productive and some of those will be quite problematic, but you can just predict that it's going to be consequential.
+There is also a followup question on that, and what are the recommended guard rails right?
+Like, what should we think about?
+Um, like thinking also not about just the positive consequences, but possibly also negative consequences, how to establish the guard rails, like what might be needing to think about at this point?
+Yeah, that is a wonderful question, and I'm not a regulator or a lawyer, but if I were, this would be where I would focus all of my attention.
+As I said, I think focusing on the language models is going to miss the mark, but I think if we think about regulating the systems, we're more likely to get it right, for a few reasons.
+First, we just already have legislation that governs how these systems can behave, indeed, how any software system can behave, and I frankly think a lot more of that is going to carry over into the AI realm than we currently give it credit for.
+Um, we could also think about human aspects to this, like guarantees that these uh systems need to identify themselves as non-human as they interact with us, because I think that helps us as people figure out how to calibrate to them as agents and it could also help us kind of control the situations that we allow them to enter into.
+Um, but there might also just need to be some fundamental restrictions on, for example, whether or not we allow these models to log into certain kinds of websites or interact freely on some kinds of social networks.
+I'm not sure.
+I'm taking a kind of wait and see attitude, um, and I guess I'm hoping that the initial disasters are not cataclysmic so that we can learn from them and figure out how to respond as a society.
+Thank you so much.
+Um, there are a few questions about consequences for individuals.
+So we talked briefly about how this can influence the technology and society.
+Like how can people think about this for themselves?
+There was a question actually which was phrased like how might just influence a kind of normal person like me in the next five years, like what would you say to that?
+Oh, I think it's going to impact all of our lives.
+I think if we weren't even thinking about AI, it would still impact our lives because we're going to see more and more systems that can help us in our daily lives.
+And again, a language model on its own is not going to help you very much at all because it is kind of inert, but a language model embedded in a system that has prompting strategies and access to tools could be something that helps you with low-level tasks in your lives.
+It could also help you with doing, um, you know, interactional things, companionship, uh, discovery of new ideas, creative expression.
+I think we're going to find systems that can help us with all those things, and that's the bright point.
+And then, and also things like education.
+I think I'm- you know, I'm- a big booster on the idea that there's about to be breakthroughs in terms of the education experiences we can provide in a customized way at low costs because of geni um.
+But there are also going to be bad actors that try to do things like social engineering their way into getting our usernames and passwords right.
+That is like a Dark Side of giving them a capability to log into websites and something like a goal of doing so.
+Um, if we leave them unfettered, they might do really surprising things in response to that goal.
+So we're going to also have to as individuals in society.
+Just be on the lookout for AI systems.
+Mar.
+There are a couple of directions.
+People are like asking about like what, like how they can learn more about this.
+So one of the groups of people at least I'm seeing is very technical, so like they are trying to learn more about kind of dspi and like kind of what you are recommending here.
+The other is like leaders and Business Leaders and they are not sure how to grasp this, what it could mean for the businesses and kind of leadership thinking.
+Do you have a recommendation for both?
+Oh, fascinating.
+In terms of general education.
+For dspi, uh, we have a Discord and we have lots of tutorials and I think one wonderful way to get involved in an open source project like that is to file issues or even make PRS.
+That might turn into contributions, because that's a way to introduce yourself to the community and begin to have a positive impact.
+Uh, and learn about the kind of things that are on people's minds.
+Maybe the first stop there is the Discord.
+It's thriving and you give you a sense for the kinds of things people are working on.
+Some of them are working in teams and you could think about kind of joining forces with them.
+So that's wide open, and the research community is also wide open.
+I do think there are wonderful things on YouTube that could help you think about different prompting strategies, agents, and tool usage.
+A lot of the themes that I touched on today can be unpacked into entire courses, frankly, but YouTube is pretty good about that in terms of understanding what's happening in Industry.
+Unfortunately, it seems like things are getting increasingly closed and we're losing a lot of insight into exactly the decisions they're making and why they're making those decisions, and so forth, even at the level of research Innovation, and then, if you're yourself a leader in an organization, thinking about how you would define a generative AI strategy, um, that's probably worth its own separate lecture, but there are some things that I could offer as advice, and I think that maybe the main thing would be to
+Great, thank you so much.
+Um, there are also people asking- you know there's a lot of information, as you mentioned.
+Like you showed that nice slide with kind of just Twitter or X kind of running.
+Like how do you get information and keep up to date with what's going on in the field?
+Like, what would you recommend somebody you know they have maybe 10 minutes a day to kind of deal with- like what's going in the field?
+Like what would you recommend people?
+And also, what do you yourself follow and like to learn about?
+Yes, I feel some sense of loss about this because four or five years ago Twitter was my go-to resource for this.
+My timeline was full of people announcing papers and discussing papers and it was a great way to filter, to get a sense for what was important and what kind of innovative things were happening.
+Because of changes at Twitter now, x, uh, it feels less vibrant in that regard and it seems like the communities have spread out into blue sky and threads and Mastadon, uh, so that's less reliable, uh.
+One nice thing about this- this is kind of meta, but with the rise of generative AI and, in particular, um systems that can do retrieval, augmented generation, into research papers.
+You can often begin to get a sense for an area by simply typing a common sense question like what is deep learning or what is Chain of Thought, uh into some search engines like chat, GPT, uh, which does search functions.
+Now I saw that there's a new tool from a semantic scholar at the Allen Institute that does this and I think that could be very productive in terms of getting a sense for what's happening in the literature and where to begin in terms of papers to check out and so forth.
+NLP is kind of easy for this because it's a very organized community in terms of its literature.
+If you go to the ACL Anthology, that pretty much includes every NLP paper and you could use those search functions together with citation information to get a sense in a given area for what's most influential and what the latest things are.
+And I think that's a nice chance to push the course that Petra and I do, natural language understanding, which includes a project development phase.
+That includes the technique of building a good literature review, kind of forming an experimental protocol and then writing a paper, maybe with some Associated code, and that is a kind of guided way to do a focused research project and get a sense for the rhythms of research in the domain.
+Great, thank you, maybe we can take one or two more questions like shorter ones.
+So one of them is: is the SPI getting Traction in this B in the business world?
+My engineering team is very focused on lung chain, but I'm trying to open their eyes to what thepi offers and we have gotten actually this question a few times about kind of the lung chain and kind of like where to look and what to do.
+Um, do you have some recommendations on kind of your input to this question?
+Yeah, I would check out.
+So dspi doai is the website.
+Uh, it's got documentation.
+It also lists out use cases.
+One nice thing about those is that many of them are blog posts from various organizations, from like Jet Blue down to, uh, very new and small startups that have been using dspi in various ways and that could give you a sense for the coding patterns and the kind of problems that people have tackled and also plenty of starter code.
+And then I think at a level, whether you use DSP or not, it could be Lang chain, but I think the thing to do if you're just starting out is make some principal choices.
+It's very tempting at this point to begin with some prompt templates, and I think that can be very productive in terms of teaching you things.
+But the problem is that you might look back in six months and find that you have designed in some sense, a system entirely around these prompt templates, but now any change that you want to make is almost impossible and it has unintended consequences throughout the system.
+And then you have that dreaded moment, which I alluded to, where somebody says: you can't use Claude anymore, you have to use these open AI models or these llama models, and what you discover is that now everything is broken and that really does mean going back to step zero and rewriting all these prompt templates.
+You have to avoid that failure mode.
+If you're already entrenched in prompt templates, you might just have to live with that and try to get out of it somehow.
+But if you are just starting out, do something that will involve expressing these things as proper software systems, and I do think dspi is a great choice for that.
+It's specially tailored to people who are really experienced in machine learning.
+It has many of those pie torch principles that I alluded to before, so there could be a bit of a learning curve at the start, but I think the investment will pay off in terms of you ultimately ending up with a system that is very flexible and adaptable and can respond to new requirements and changes in the underlying environment that you're working in.
+Thank you, uh, and last kind of summary question: if people should take one thing from this talk, or like one fact, one information that you find the most important, even if they forget everything else, what would it be?
+What would you recommend?
+I think it really is to just avoid the Trap of thinking entirely in terms of models.
+We're all doing it, and I feel like it's a trick we're pulling on ourselves because we always talk about the latest model releases and we even talk about things that are clearly software systems, like chat, GPT, as though they were models, when in fact they are not.
+And so if you just embrace the fact that it's a system, that will mean that you concentrate your energy not just on the model choice or its properties, but also on the other things that are so consequential, and in that way, you'll be like that F1 race car design team that, of course, is focusing on much more than just the engine, because it is an effort to try to get all of those complicated pieces to work in concert to do something really difficult, uh, and so I think intrinsically
+And then, if you think about that, note what's happening in Industry, where most of the energy is focused on small models.
+This is especially important because with a small model, you can't rely on simplistic system design.
+You know a simple prompting strategy.
+You have to do everything you can to get that relatively small thing to do a big thing in the world, and that really does Place more pressure on system design.
+But, as you can tell, I think that that pressure is actually just a huge opportunity.
+Thank you so much grace.
+Thank you so much for making the time.
+Thank you for all the wonderful questions.
+We couldn't get to all, but we tried to kind of at least cover most of them on a higher level.
+We appreciate everybody joining.
+We will post this on YouTube, uh, also, we will share the record of this session.
+So thank you again and have a wonderful day.
+Thank you, Petra, and thanks to everyone for all those questions.
+This was a really wonderful discussion.

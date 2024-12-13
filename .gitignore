@@ -5,6 +5,8 @@ block2/rasa
 block3/notebooks/vector_store/
 .webui_secret_key
 
+youtube/data/
+
 # MAC
 .DS_Store
 *.DS_Store
