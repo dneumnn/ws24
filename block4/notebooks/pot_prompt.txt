@@ -2,7 +2,7 @@
 from sympy import Symbol
 from sympy import simplify
 import math
-from sympy import solve_it
+from sympy import solve
 # solve_it(equations, variable): solving the equations and return the variable value.
 
 # Question: In a flight of 600 km, an aircraft was slowed down due to bad weather. Its average speed for the trip was reduced by 200 km/hr and the time of flight increased by 30 minutes. The duration of the flight is:

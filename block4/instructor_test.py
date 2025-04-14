@@ -5,7 +5,11 @@ from typing import Optional
 
 def _extract_user(client: instructor.Instructor, model_id: str):
 
-    user_prompt = "John Doe is 30 years old."
+    #user_prompt = "John Doe is 30 years old."
+    #user_prompt = "In Manila ist das Wetter heute warm."
+    #user_prompt = "John Doe is two years old boy."
+
+    user_prompt = "John and Maria are a couple and they know each other for two years."
 
     # Define your desired output structure
     class ExtractUser(BaseModel):
@@ -20,8 +24,9 @@ def _extract_user(client: instructor.Instructor, model_id: str):
         messages=[{"role": "user", "content": user_prompt}],
     )
     print(res)
-    assert res.name == "John Doe"
-    assert res.age == 30
+    print(type(res))
+    assert res.name == "John"
+    assert res.age == 2
 
 
 def _extract_shoppingcart(client: instructor.Instructor, model_id: str):
@@ -57,5 +62,17 @@ if __name__ == "__main__":
         mode=instructor.Mode.JSON, # does not without for ollama and llama3.2
     )
 
-    _extract_user(client, model_id)
+    # Define hook functions
+    def log_kwargs(**kwargs):
+        print(f"Function called with kwargs: {kwargs}")
+
+
+    def log_exception(exception: Exception):
+        print(f"An exception occurred: {str(exception)}")
+
+
+    client.on("completion:kwargs", log_kwargs)
+    client.on("completion:error", log_exception)
+
+    #_extract_user(client, model_id)
     _extract_shoppingcart(client, model_id)

@@ -70,7 +70,7 @@ response = client.chat.completions.create(
 #    print("tool_call: ", choice.message.tool_calls)
 
 # Extract the arguments for get_customer_id
-
+import pdb; pdb.set_trace()
 tool_call = response.choices[0].message.tool_calls[0]
 print(tool_call)
 

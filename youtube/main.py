@@ -13,10 +13,20 @@ import logging
 import requests
 from urllib.parse import urlparse
 
+#from pytube import Playlist, YouTube
+#import pytube
 from pytube import Playlist, YouTube
+from pytube.download_helper import (
+    download_videos_from_channels,
+    download_video,
+    download_videos_from_list,
+)
+
 from youtube_transcript_api import YouTubeTranscriptApi
 from nltk.tokenize import sent_tokenize
 from re_punctuation import PunctuationModel
+
+import streamer as st
 
 # Deep Learning Lecture of Andreas Geiger from University of Tübnigen 
 #URL = "https://www.youtube.com/playlist?list=PL05umP7R6ij3NTWIdtMbfvX7Z-4WEXRqD"
@@ -88,7 +98,7 @@ def _load_playlist(url:str) -> Union[Playlist, dict]:
     print("owner      :",playlist.owner)
     print("owner id   :",playlist.owner_id)
     print("owner url  :",playlist.owner_url)
-    print("updated    :",playlist.last_updated)
+    #print("updated    :",playlist.last_updated)
     print("length     :",playlist.length)
 
     playlist_dict = {}
@@ -99,7 +109,7 @@ def _load_playlist(url:str) -> Union[Playlist, dict]:
     playlist_dict["owner"] = playlist.owner
     playlist_dict["owner_id"] = playlist.owner_id
     playlist_dict["owner_url"] = playlist.owner_url
-    playlist_dict["updated"] = str(playlist.last_updated)
+    playlist_dict["updated"] = "" #str(playlist.last_updated)
     playlist_dict["videos"] = []
     
     return playlist, playlist_dict
@@ -221,10 +231,10 @@ if __name__ == "__main__":
             print(f"directory {output_path} created")
 
         print(f"Extract videos from playlist: {playlist_dict['id']}")
-        videos: list[YouTube] = list(playlist.videos)
+        videos: list[object] = list(playlist.videos)
 
     elif video_id is not None:
-        video = YouTube(url=args.url) 
+        video = YouTube(url=args.url)
         videos: list[YouTube] = [video]
 
     else:
@@ -248,16 +258,52 @@ if __name__ == "__main__":
 
         else:
             os.mkdir(video_path)
-                    
-            stream = video.streams.get_highest_resolution()
-            video_dict["resolution"] = stream.resolution
-            video_dict["filesize"] = stream.filesize
-            video_dict["codecs"] = stream.codecs
+            video_json_file = f"{video_path}{os.sep}video.json"
 
-            with open(f"{video_path}{os.sep}video.json", "w") as f:
-                f.write(json.dumps(video_dict, indent=3))
+            try:        
+                stream = video.streams.get_highest_resolution()
+                video_dict["resolution"] = stream.resolution
+                video_dict["filesize"] = stream.filesize
+                video_dict["codecs"] = stream.codecs
 
-            stream.download(output_path=video_path, filename=f"{video_id}.mp4")
+                with open(video_json_file, "w") as f:
+                    f.write(json.dumps(video_dict, indent=3))
+                print(f"video json written to {video_json_file}")
+
+                stream.download(output_path=video_path, filename=f"{video_id}.mp4")
+            except Exception as e:
+                print(f"There was an error: {e}.")
+                print("Try again with streamer.")
+                tmp_path = f"{output_path}{os.sep}tmp"    
+                client = "IOS"
+                video_files = st.download(path=tmp_path, video_id=video_id, 
+                                          client=client, 
+                                          allowed_mime_types=[st.VIDEO_MP4])
+                print(f"{len(video_files)} video files downloaded.")
+                audio_files = st.download(path=tmp_path, video_id=video_id, 
+                                          client=client, 
+                                          allowed_mime_types=[st.AUDIO_MP4])
+                print(f"{len(audio_files)} audio files downloaded.")
+                
+                # now combine audio and video
+                video_filepath, video_stream = video_files[0]
+                audio_filepath, audio_stream = audio_files[0]
+
+                output_file = f"{video_path}{os.sep}{video_id}.mp4"
+                st.combine_video_with_audio(video_filepath=video_filepath,
+                             audio_filepath=audio_filepath,
+                             output_file=output_file)
+                
+                file_stats = os.stat(output_file)
+
+                video_dict["resolution"] = video_stream.width * video_stream.height
+                video_dict["filesize"] = file_stats.st_size
+                video_dict["codecs"] = video_stream.codecs
+
+                with open(video_json_file, "w") as f:
+                    f.write(json.dumps(video_dict, indent=3))
+                print(f"video json written to {video_json_file}")
+        
 
             transcript_dict = _load_video_transcript(video_id=video_id)
             with open(f"{video_path}{os.sep}transcription.json", "w") as f:

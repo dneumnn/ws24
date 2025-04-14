@@ -25,11 +25,25 @@ How to extract all titles of a playlist?
     - <https://medium.com/chat-gpt-now-writes-all-my-articles/extract-youtube-video-transcripts-for-free-in-python-then-summarize-the-videos-with-openai-2234d944232a>
 
 ```bash
-conda create --name "youtube" -python=3.11
+conda create --name "youtube" -python=3.12
 conda activate youtube
-pip install pytube, innertube
+pip install pytube2 
+pip install innertube
 pip install youtube-transcript-api
+pip install moviepy
 ```
+
+## Use moviepy to combine or extract audio from video.
+
+```code
+def combine_audio(vidname, audname, outname, fps=25):
+    import moviepy.editor as mpe
+    my_clip = mpe.VideoFileClip(vidname)
+    audio_background = mpe.AudioFileClip(audname)
+    final_clip = my_clip.set_audio(audio_background)
+    final_clip.write_videofile(outname,fps=fps)
+```
+
 
 ## Grammer Correction and Re-Punctuation
 
@@ -44,3 +58,17 @@ python
 >>> nltk.download('punkt_tab')
 ```
 
+## Scene Detection
+
+```bash
+pip install scenedetect
+pip install opencv-python
+```
+
+
+## Download and Extract
+
+```bash
+python main.py --url <playlist or video url> --out <path to output>
+
+```
